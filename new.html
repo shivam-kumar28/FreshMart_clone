@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshMart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #ffffff;
+        color: #111;
+    }
+
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+        height: 72px;
+        background: #fff;
+
+        justify-content: space-between;
+
+        display: flex;
+        align-items: center;
+
+        padding: 0 5%;
+
+        border-bottom: 1px solid #e5e5e5;
+
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    nav {
+        display: flex;
+        gap: 30px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .logo {
+        font-size: 25px;
+        font-weight: 700;
+        color: #164f3b;
+
+        width: 25%;
+    }
+
+    .search-box {
+        width: 40%;
+    }
+
+    .search-box input {
+        width: 100%;
+        height: 42px;
+
+        border: 1px solid #cfcfcf;
+        border-radius: 8px;
+
+        padding: 0 15px;
+
+        font-size: 14px;
+
+        outline: none;
+    }
+
+    .search-box input:focus {
+        border-color: #166b4c;
+    }
+
+    .navbar nav {
+        width: 35%;
+
+        display: flex;
+        justify-content: flex-end;
+        gap: 25px;
+    }
+
+    .navbar nav a {
+        text-decoration: none;
+        color: #222;
+
+        font-size: 14px;
+    }
+
+    .navbar nav a:hover {
+        color: #087443;
+    }
+
+
+    /* ================= HERO ================= */
+
+    .hero {
+        margin: 18px auto 30px;
+
+        width: 92%;
+        min-height: 330px;
+
+        background: #b9dfd2;
+
+        border-radius: 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 45px 65px;
+    }
+
+    .hero-content h1 {
+        font-size: 48px;
+        line-height: 1.08;
+
+        margin-bottom: 18px;
+    }
+
+    .hero-content p {
+        font-size: 17px;
+
+        margin-bottom: 28px;
+
+        color: #34443f;
+    }
+
+    .hero-content button {
+        background: #075b3b;
+        color: white;
+
+        border: none;
+        border-radius: 8px;
+
+        padding: 13px 30px;
+
+        font-size: 15px;
+
+        cursor: pointer;
+    }
+
+    .hero-content button:hover {
+        background: #06452f;
+    }
+
+    .hero-cart {
+        font-size: 105px;
+        margin-right: 35px;
+    }
+
+
+    /* ================= STICKY CATEGORY ================= */
+
+    .category-section {
+        background: white;
+
+        position: sticky;
+
+        /*
+       Navbar = 72px
+       Therefore category starts directly
+       below navbar while scrolling.
+    */
+        top: 72px;
+
+        z-index: 900;
+
+        padding: 18px 5% 16px;
+
+        border-bottom: 1px solid #e8e8e8;
+    }
+
+    .category-section h2 {
+        font-size: 27px;
+        margin-bottom: 17px;
+    }
+
+
+    /* Category Row */
+
+    .categories {
+        display: flex;
+        align-items: center;
+
+        gap: 38px;
+
+        overflow-x: auto;
+
+        scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    /* Individual Category */
+
+    .category {
+        min-width: 75px;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+
+        cursor: pointer;
+    }
+
+    .category-icon {
+        width: 60px;
+        height: 60px;
+
+        border-radius: 50%;
+
+        background: #eaf5f0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 32px;
+
+        margin-bottom: 8px;
+
+        transition: 0.2s;
+    }
+
+    .category span {
+        font-size: 15px;
+        color: #333;
+    }
+
+    .category:hover .category-icon {
+        transform: translateY(-3px);
+        background: #d8eee5;
+    }
+
+
+    /* ================= PRODUCTS ================= */
+
+    .products-section {
+        padding: 28px 5% 60px;
+    }
+
+    .products-grid {
+        display: grid;
+
+        grid-template-columns: repeat(5, 1fr);
+
+        gap: 20px;
+    }
+
+
+    /* Product Card */
+
+    .product-card {
+        min-height: 300px;
+
+        background: #fff;
+
+        border-radius: 12px;
+
+        overflow: hidden;
+
+        position: relative;
+
+        border: 1px solid #eeeeee;
+
+        transition: 0.25s;
+
+        cursor: pointer;
+    }
+
+    .product-card:hover {
+        transform: translateY(-4px);
+
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* Product Image */
+
+    .product-image {
+        height: 205px;
+
+        background: #f6f7f6;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        font-size: 90px;
+    }
+
+
+    /* Product Details */
+
+    .product-info {
+        padding: 16px;
+    }
+
+    .product-info h3 {
+        font-size: 18px;
+
+        margin-bottom: 7px;
+    }
+
+    .product-info p {
+        font-size: 15px;
+
+        font-weight: 600;
+    }
+
+
+    /* ================= BADGES ================= */
+
+    .badge {
+        position: absolute;
+
+        top: 12px;
+        right: 12px;
+
+        z-index: 2;
+
+        color: white;
+
+        padding: 5px 10px;
+
+        border-radius: 5px;
+
+        font-size: 11px;
+
+        font-weight: 600;
+    }
+
+    .badge.new {
+        background: #d62f3b;
+    }
+
+    .badge.discount {
+        background: #d62f3b;
+    }
+
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 1000px) {
+
+        .products-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .hero-content h1 {
+            font-size: 40px;
+        }
+    }
+
+
+    @media (max-width: 700px) {
+
+        .navbar {
+            height: auto;
+
+            padding: 15px;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+        .logo {
+            width: 100%;
+        }
+
+        .search-box {
+            width: 100%;
+        }
+
+        .navbar nav {
+            width: 100%;
+
+            justify-content: flex-start;
+        }
+
+        .hero {
+            min-height: 280px;
+
+            padding: 30px;
+
+            margin-top: 15px;
+        }
+
+        .hero-content h1 {
+            font-size: 32px;
+        }
+
+        .hero-cart {
+            display: none;
+        }
+
+        .category-section {
+            top: 132px;
+        }
+
+        .products-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+
+    @media (max-width: 450px) {
+
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero {
+            width: 94%;
+            padding: 25px;
+        }
+
+        .hero-content h1 {
+            font-size: 28px;
+        }
+
+        .category-section h2 {
+            font-size: 22px;
+        }
+
+        .end {
+            border-top: 1px solid lightcyan;
+            width: 100%;
+            height: 200px;
+            background-color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: antiquewhite;
+        }
+
+        .nav {
+            grid-template-columns: ;
+        }
+    }
+</style>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="navbar">
+        <div class="logo">FreshMart</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#products">Products</a>
+            <a href="#">Cart 🛒</a>
+        </nav>
+
+        <div class="search-box">
+            <input type="text" placeholder="Search fruits, vegetables...">
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+
+        <div class="hero-content">
+            <h1>
+                Fresh groceries<br>
+                delivered to you.
+            </h1>
+
+            <p>
+                Fruits, vegetables and daily essentials delivered fresh.
+            </p>
+
+            <button>Shop Now</button>
+        </div>
+
+        <div class="hero-cart">
+            🛒
+        </div>
+
+    </section>
+
+
+    <!-- ================= STICKY CATEGORY ================= -->
+    <section class="category-section">
+
+        <h2>Shop by Category</h2>
+
+        <div class="categories">
+
+            <div class="category">
+                <div class="category-icon">🍎</div>
+                <span>Fruits</span>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">🥦</div>
+                <span>Vegetables</span>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">🥛</div>
+                <span>Dairy</span>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">🍞</div>
+                <span>Bakery</span>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">🧃</div>
+                <span>Drinks</span>
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ================= PRODUCTS ================= -->
+    <main class="products-section" id="products">
+
+        <div class="products-grid">
+
+            <!-- Apple -->
+            <div class="product-card">
+                <div class="product-image">🍎</div>
+
+                <div class="product-info">
+                    <h3>Fresh Apples</h3>
+                    <p>₹120 / kg</p>
+                </div>
+            </div>
+
+
+            <!-- Broccoli -->
+            <div class="product-card">
+                <div class="product-image">🥦</div>
+
+                <div class="product-info">
+                    <h3>Fresh Broccoli</h3>
+                    <p>₹80 / kg</p>
+                </div>
+            </div>
+
+
+            <!-- Milk -->
+            <div class="product-card">
+                <div class="product-image">🥛</div>
+
+                <div class="product-info">
+                    <h3>Fresh Milk</h3>
+                    <p>₹60 / litre</p>
+                </div>
+            </div>
+
+
+            <!-- Bread -->
+            <div class="product-card">
+                <div class="product-image">🍞</div>
+
+                <div class="product-info">
+                    <h3>Brown Bread</h3>
+                    <p>₹45</p>
+                </div>
+            </div>
+
+
+            <!-- Orange -->
+            <div class="product-card">
+                <div class="product-image">🍊</div>
+
+                <div class="product-info">
+                    <h3>Fresh Oranges</h3>
+                    <p>₹90 / kg</p>
+                </div>
+            </div>
+
+
+            <!-- Banana -->
+            <div class="product-card">
+
+                <span class="badge new">NEW</span>
+
+                <div class="product-image">🍌</div>
+
+                <div class="product-info">
+                    <h3>Bananas</h3>
+                    <p>₹60 / kg</p>
+                </div>
+
+            </div>
+
+
+            <!-- Tomato -->
+            <div class="product-card">
+                <div class="product-image">🍅</div>
+
+                <div class="product-info">
+                    <h3>Tomatoes</h3>
+                    <p>₹50 / kg</p>
+                </div>
+            </div>
+
+
+            <!-- Orange Juice -->
+            <div class="product-card">
+
+                <span class="badge discount">10% OFF</span>
+
+                <div class="product-image">🧃</div>
+
+                <div class="product-info">
+                    <h3>Orange Juice</h3>
+                    <p>₹100</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+    <footer class="end">
+        <p> FreshMart @ 2025 | CSS Position Practice</p>
+    </footer>
+</body>
+
+</html>
